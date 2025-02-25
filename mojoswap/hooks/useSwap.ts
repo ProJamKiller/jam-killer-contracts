@@ -11,8 +11,8 @@ export const useSwap = (provider: BrowserProvider | null) => {
     if (!provider) throw new Error("Please connect your wallet");
     setLoading(true);
 
-    const DUMMY_ADDRESS = "0x000000000000000000000000000000000000dEaD"; // Black hole
-    const PJK_TOKEN_ADDRESS = "0xfc0E40e7D6AbA1079409966bcAcB2273f048Da5F"; // PJK token
+    const DUMMY_ADDRESS = "0x000000000000000000000000000000000000dEaD";
+    const PJK_TOKEN_ADDRESS = "0xfc0E40e7D6AbA1079409966bcAcB2273f048Da5F";
 
     try {
       const network = await provider.getNetwork();
