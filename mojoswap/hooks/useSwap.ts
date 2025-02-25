@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { ethers } from "ethers";
+import { BrowserProvider, Contract, parseUnits } from "ethers";
 import { MOJO_SWAP_CONTRACT, PJK_BURNER_ADDRESS } from "../constants/contracts";
-import erc20Abi from "../constants/erc20Abi.json";
-import mojoSwapAbi from "../constants/mojoSwapAbi.json";
-import pjkBurnerAbi from "../constants/pjkBurnerAbi.json";
+import erc20Abi from "../constants/erc20Abi.json"; // PJKBurner uses this
+import swapAbi from "../constants/swapAbi.json"; 
 
-export const useSwap = (provider: ethers.providers.Web3Provider | null) => {
+export const useSwap = (provider: BrowserProvider | null) => {
   const [loading, setLoading] = useState(false);
 
   const burnPJKAndSwap = async (amount: string) => {
@@ -13,11 +12,11 @@ export const useSwap = (provider: ethers.providers.Web3Provider | null) => {
     setLoading(true);
 
     try {
-      const signer = provider.getSigner();
-      const pjkBurner = new ethers.Contract(PJK_BURNER_ADDRESS, erc20Abi, signer);
-      const mojoSwap = new ethers.Contract(MOJO_SWAP_CONTRACT, mojoSwapAbi, signer);
+      const signer = await provider.getSigner();
+      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, erc20Abi, signer); // PJKBurner uses ERC-20 ABI
+      const mojoSwap = new Contract(MOJO_SWAP_CONTRACT, swapAbi, signer);
       
-      const weiAmount = ethers.utils.parseUnits(amount, 18);
+      const weiAmount = parseUnits(amount, 18);
 
       // Approve the burner contract to spend PJK
       const approveTx = await pjkBurner.approve(PJK_BURNER_ADDRESS, weiAmount);
