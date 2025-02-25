@@ -1,40 +1,60 @@
-.swap-container {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  background: #121212; /* Dark background */
-  border-radius: 8px;
-  text-align: center;
+/* Swap Page - Modern Dark Theme with Responsive Background */
+body {
+  background: url("https://bafybeihd45vo4kkn4h72mepr2mzpr4qmfagd3gbgt3mij77za54d74d4ba.ipfs.dweb.link?filename=PoweredbyMojo.png") no-repeat center center fixed;
+  background-size: cover;
   color: white;
-  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Swap Box */
+.swap-container {
+  max-width: 450px;
+  width: 100%;
+  padding: 30px;
+  background: rgba(30, 30, 30, 0.85); /* Dark transparent overlay */
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Logo */
 .mojo-logo {
-  width: 150px;
+  width: 180px;
   height: auto;
   margin-bottom: 20px;
+  border-radius: 8px;
 }
 
+/* Swap Input */
 .swap-container input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 8px;
   border: none;
-  background: #222;
+  background: #2c2c2c;
   color: white;
+  font-size: 16px;
 }
 
+/* Swap Button */
 .swap-container button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: #ff9800;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 18px;
+  border-radius: 8px;
   transition: 0.3s;
+  font-weight: bold;
 }
 
 .swap-container button:hover {
@@ -44,4 +64,14 @@
 .swap-container button:disabled {
   background: gray;
   cursor: not-allowed;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  body {
+    background-size: contain;
+  }
+  .swap-container {
+    width: 90%;
+  }
 }
