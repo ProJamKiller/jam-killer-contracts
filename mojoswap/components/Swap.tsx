@@ -37,5 +37,11 @@ const Swap = () => {
     </div>
   );
 };
+export {};
 
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
+}
 export default Swap;
