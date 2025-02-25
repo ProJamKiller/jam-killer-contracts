@@ -1,0 +1,9 @@
+[
+    {
+      "constant": false,
+      "inputs": [{ "name": "_amount", "type": "uint256" }],
+      "name": "swapPJKForMojo",
+      "outputs": [],
+      "type": "function"
+    }
+  ]

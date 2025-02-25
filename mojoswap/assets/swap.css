@@ -1,0 +1,31 @@
+.swap-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+  }
+  
+  .swap-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .swap-container button {
+    width: 100%;
+    padding: 10px;
+    background: #ff9800;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .swap-container button:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
