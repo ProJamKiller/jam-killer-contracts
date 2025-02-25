@@ -1,31 +1,47 @@
 .swap-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: #222;
-    border-radius: 8px;
-    text-align: center;
-    color: white;
-  }
-  
-  .swap-container input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: none;
-  }
-  
-  .swap-container button {
-    width: 100%;
-    padding: 10px;
-    background: #ff9800;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .swap-container button:disabled {
-    background: gray;
-    cursor: not-allowed;
-  }
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #121212; /* Dark background */
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.mojo-logo {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.swap-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background: #222;
+  color: white;
+}
+
+.swap-container button {
+  width: 100%;
+  padding: 10px;
+  background: #ff9800;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.swap-container button:hover {
+  background: #e68900;
+}
+
+.swap-container button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
