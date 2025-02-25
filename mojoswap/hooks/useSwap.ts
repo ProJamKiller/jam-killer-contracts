@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { BrowserProvider, Contract, parseUnits } from "ethers";
 import { MOJO_SWAP_CONTRACT, PJK_BURNER_ADDRESS } from "../constants/contracts";
-import pjkBurnerAbi from "../constants/pjkBurnerAbi.json"; // PJKBurner uses this
-import swapAbi from "../constants/swapAbi.json"; 
+import pjkBurnerAbi from "../constants/pjkBurnerAbi.json"; // Use the ABI that includes burnPJK
+import swapAbi from "../constants/swapAbi.json";
 
 export const useSwap = (provider: BrowserProvider | null) => {
   const [loading, setLoading] = useState(false);
@@ -13,20 +13,22 @@ export const useSwap = (provider: BrowserProvider | null) => {
 
     try {
       const signer = await provider.getSigner();
-      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, pjkBurnerAbi, signer); // PJKBurner uses ERC-20 ABI
+      // Instantiate the PJKBurner contract using its correct ABI
+      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, pjkBurnerAbi, signer);
+      // Instantiate the MojoSwap contract using its ABI
       const mojoSwap = new Contract(MOJO_SWAP_CONTRACT, swapAbi, signer);
       
       const weiAmount = parseUnits(amount, 18);
 
-      // Approve the burner contract to spend PJK
+      // Approve the burner contract to spend PJK tokens
       const approveTx = await pjkBurner.approve(PJK_BURNER_ADDRESS, weiAmount);
       await approveTx.wait();
 
-      // Burn PJK using the correct function name
+      // Call the correct burn function (burnPJK) on the PJKBurner contract
       const burnTx = await pjkBurner.burnPJK(weiAmount);
       await burnTx.wait();
 
-      // Swap for Mojo
+      // Call the swap function on the MojoSwap contract to swap burned PJK for Mojo
       const swapTx = await mojoSwap.swap(weiAmount);
       await swapTx.wait();
 
