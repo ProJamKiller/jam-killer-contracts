@@ -3,13 +3,10 @@
   "main": "./index.js",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "test": "jest --watchAll",
-    "lint": "expo lint"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
+},
   "jest": {
     "preset": "jest-expo"
   },
