@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
+import { BrowserProvider, Contract, parseUnits } from "ethers";
 import { useSwap } from "../hooks/useSwap";
-import { ethers } from "ethers";
 import "../assets/swap.css";
 
 const Swap = () => {
   const [amount, setAmount] = useState("");
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
+  const [provider, setProvider] = useState<BrowserProvider | null>(null);
   const { burnPJKAndSwap, loading } = useSwap(provider);
 
   useEffect(() => {
-    if (window.ethereum) {
-      setProvider(new ethers.providers.Web3Provider(window.ethereum));
+    if (typeof window !== "undefined" && window.ethereum) {
+      setProvider(new BrowserProvider(window.ethereum));
     }
   }, []);
 
@@ -37,11 +37,5 @@ const Swap = () => {
     </div>
   );
 };
-export {};
 
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}
 export default Swap;
