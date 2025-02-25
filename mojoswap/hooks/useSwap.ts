@@ -1,77 +1,56 @@
 import { useState } from "react";
 import { BrowserProvider, Contract, parseUnits } from "ethers";
-import { MOJO_SWAP_CONTRACT, PJK_BURNER_ADDRESS, PJK_TOKEN_ADDRESS } from "../constants/contracts";
-import pjkTokenAbi from "../constants/pjkTokenAbi.json"; // ABI for PJK token (ERC-20)
-import pjkBurnerAbi from "../constants/pjkBurnerAbi.json"; // ABI for PJKBurner contract
-import swapAbi from "../constants/swapAbi.json"; // ABI for MojoSwap contract
+import { MOJO_SWAP_CONTRACT } from "../constants/contracts";
+import pjkTokenAbi from "../constants/pjkTokenAbi.json";
+import swapAbi from "../constants/swapAbi.json";
 
 export const useSwap = (provider: BrowserProvider | null) => {
   const [loading, setLoading] = useState(false);
 
   const burnPJKAndSwap = async (amount: string) => {
-    if (!provider) {
-      throw new Error("Please connect your wallet");
-    }
-
+    if (!provider) throw new Error("Please connect your wallet");
     setLoading(true);
 
+    const DUMMY_ADDRESS = "0x000000000000000000000000000000000000dEaD"; // Black hole
+    const PJK_TOKEN_ADDRESS = "0xfc0E40e7D6AbA1079409966bcAcB2273f048Da5F"; // PJK token
+
     try {
-      // Get the signer from the provider
+      const network = await provider.getNetwork();
+      console.log("Network chainId:", network.chainId.toString());
+      if (network.chainId !== BigInt(137)) throw new Error("Switch to Polygon Mainnet");
+
       const signer = await provider.getSigner();
       const userAddress = await signer.getAddress();
       console.log("Connected wallet:", userAddress);
 
-      // Instantiate contracts with their respective ABIs
-      const pjkToken = new Contract(PJK_TOKEN_ADDRESS, pjkTokenAbi, signer);
-      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, pjkBurnerAbi, signer);
-      const mojoSwap = new Contract(MOJO_SWAP_CONTRACT, swapAbi, signer);
-
-      // Convert amount to wei (assuming 18 decimals for PJK)
       const weiAmount = parseUnits(amount, 18);
-      console.log("Swap amount (wei):", weiAmount.toString());
+      console.log("Transfer amount (wei):", weiAmount.toString());
 
-      // Check user’s PJK balance
-      const balance = await pjkToken.balanceOf(userAddress);
-      console.log("PJK balance (wei):", balance.toString());
-      if (balance < weiAmount) {
-        throw new Error("Insufficient PJK balance");
-      }
+      // Transfer PJK to dummy address
+      const pjkToken = new Contract(PJK_TOKEN_ADDRESS, pjkTokenAbi, signer);
+      console.log("Transferring PJK to:", DUMMY_ADDRESS);
+      const transferTx = await pjkToken.transfer(DUMMY_ADDRESS, weiAmount, { gasLimit: 100000 });
+      console.log("Transfer TX:", transferTx.hash);
+      await transferTx.wait();
+      console.log("PJK tokens transferred to dummy address");
 
-      // Check and adjust allowance for the burner
-      const allowance = await pjkToken.allowance(userAddress, PJK_BURNER_ADDRESS);
-      console.log("Current allowance (wei):", allowance.toString());
-      if (allowance > BigInt(0) && allowance < weiAmount) {
-        console.log("Resetting allowance to 0 before approving new amount...");
-        const resetTx = await pjkToken.approve(PJK_BURNER_ADDRESS, 0, { gasLimit: 100000 });
-        await resetTx.wait();
-      }
-      if (allowance < weiAmount) {
-        console.log("Approving burner to spend PJK...");
-        const approveTx = await pjkToken.approve(PJK_BURNER_ADDRESS, weiAmount, { gasLimit: 100000 });
-        await approveTx.wait();
-      }
-
-      // Burn the PJK tokens
-      console.log("Burning PJK tokens...");
-      const burnTx = await pjkBurner.burnPJK(weiAmount, { gasLimit: 200000 });
-      await burnTx.wait();
-      console.log("PJK tokens burned successfully");
-
-      // Swap for Mojo tokens
-      console.log("Swapping for Mojo...");
+      // Swap for Mojo
+      const mojoSwap = new Contract(MOJO_SWAP_CONTRACT, swapAbi, signer);
+      console.log("Swapping for Mojo at:", MOJO_SWAP_CONTRACT);
       const swapTx = await mojoSwap.swap(weiAmount, { gasLimit: 300000 });
+      console.log("Swap TX:", swapTx.hash);
       await swapTx.wait();
-      console.log("Swap completed");
+      console.log("Mojo tokens delivered");
 
-      return {
-        success: true,
-        message: `Successfully burned ${amount} PJK and swapped for Mojo`,
+      return { 
+        success: true, 
+        message: `Moved ${amount} PJK to dummy address and swapped for Mojo` 
       };
     } catch (error: any) {
       console.error("Error during swap process:", error);
-      return {
-        success: false,
-        message: `Swap failed: ${error.message || "Unknown error"}`,
+      return { 
+        success: false, 
+        message: `Swap failed: ${error.message || "Unknown error"}` 
       };
     } finally {
       setLoading(false);
