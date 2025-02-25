@@ -1,5 +1,4 @@
-require("@matterlabs/hardhat-zksync-solc");
-require("@matterlabs/hardhat-zksync-verify");
+
 
 
 /** @type import('hardhat/config').HardhatUserConfig */

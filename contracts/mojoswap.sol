@@ -13,7 +13,7 @@ interface IPGKBurner {
  */
 contract MojoSwap {
     Mojo public mojoToken = Mojo(0xf9e7D3cd71Ee60C7A3A64Fa7Fcb81e610Ce1daA5);
-    IPGKBurner public pjkBurner = IPGKBurner(0xFF197b807f60c2985938c0Fe920D89E1c80a1aF3);
+    IPGKBurner public pjkBurner = IPGKBurner(0xfc0E40e7D6AbA1079409966bcAcB2273f048Da5F);
     address public owner;
     
     mapping(address => uint256) public pendingSwaps;
