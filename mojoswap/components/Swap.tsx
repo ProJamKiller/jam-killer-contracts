@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserProvider, Contract, parseUnits } from "ethers";
 import { useSwap } from "../hooks/useSwap";
-import "../assets/swap.css";
+
 
 const Swap = () => {
   const [amount, setAmount] = useState("");
