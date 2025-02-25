@@ -22,8 +22,8 @@ export const useSwap = (provider: BrowserProvider | null) => {
       const approveTx = await pjkBurner.approve(PJK_BURNER_ADDRESS, weiAmount);
       await approveTx.wait();
 
-      // Burn PJK
-      const burnTx = await pjkBurner.burn(weiAmount);
+      // Burn PJK using the correct function name
+      const burnTx = await pjkBurner.burnPJK(weiAmount);
       await burnTx.wait();
 
       // Swap for Mojo
