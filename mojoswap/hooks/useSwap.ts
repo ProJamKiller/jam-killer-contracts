@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserProvider, Contract, parseUnits } from "ethers";
 import { MOJO_SWAP_CONTRACT, PJK_BURNER_ADDRESS } from "../constants/contracts";
-import erc20Abi from "../constants/erc20Abi.json"; // PJKBurner uses this
+import pjkBurnerAbi from "../constants/pjkBurnerAbi.json"; // PJKBurner uses this
 import swapAbi from "../constants/swapAbi.json"; 
 
 export const useSwap = (provider: BrowserProvider | null) => {
@@ -13,7 +13,7 @@ export const useSwap = (provider: BrowserProvider | null) => {
 
     try {
       const signer = await provider.getSigner();
-      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, erc20Abi, signer); // PJKBurner uses ERC-20 ABI
+      const pjkBurner = new Contract(PJK_BURNER_ADDRESS, pjkBurnerAbi, signer); // PJKBurner uses ERC-20 ABI
       const mojoSwap = new Contract(MOJO_SWAP_CONTRACT, swapAbi, signer);
       
       const weiAmount = parseUnits(amount, 18);
