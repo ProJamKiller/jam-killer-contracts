@@ -1,9 +1,5 @@
-import Swap from "../components/Swap";
+import SwapConnect from "../components/SwapConnect";
 
-export default function Home() {
-  return (
-    <div>
-      <Swap />
-    </div>
-  );
+export default function HomePage() {
+  return <SwapConnect />;
 }
