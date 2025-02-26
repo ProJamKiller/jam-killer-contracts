@@ -3,10 +3,10 @@
   "main": "./index.js",
   "version": "1.0.0",
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start"
-},
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "jest": {
     "preset": "jest-expo"
   },
@@ -18,7 +18,7 @@
     "@thirdweb-dev/react": "^4.9.4",
     "@walletconnect/react-native-compat": "^2.17.5",
     "amazon-cognito-identity-js": "^6.3.12",
-    "ethers": "^6.13.5",
+    "ethers": "5.7.2",
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
