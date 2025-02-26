@@ -24,7 +24,7 @@ const Swap = () => {
     <div className="swap-container">
       <img src="https://bafybeihjuxunsejxj5banr5lrvs45b7hozwdw4kwxloqz2gk64ajmqbthq.ipfs.dweb.link?filename=1080.gif" 
            alt="Mojo Logo" className="mojo-logo" />
-      <h2>Burn PJK & Receive Mojo</h2>
+      <h2>Is Your Mojo Working?</h2>
       <input 
         type="number"
         placeholder="Enter PJK amount"

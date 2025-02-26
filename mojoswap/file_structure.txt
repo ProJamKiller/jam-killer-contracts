@@ -1,0 +1,29 @@
+.
+├── .env
+├── .gitignore
+├── .next
+├── .nvmrc
+├── .vercel
+├── .yarnrc~
+├── README.md
+├── app
+├── app.json
+├── assets
+├── components
+├── constants
+├── eas.json
+├── file_structure.txt
+├── global.d.ts
+├── hooks
+├── index.js
+├── metro.config.js
+├── next-env.d.ts
+├── node_modules
+├── package.json
+├── pages
+├── scripts
+├── tsconfig.json
+├── vercel.json
+└── yarn.lock
+
+11 directories, 16 files
